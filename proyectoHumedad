@@ -1,0 +1,31 @@
+  int humedad = 0;
+  int sensorHumedad = A0;
+  int ledSeco = 8;
+
+void setup() {
+ 
+  Serial.begin(9600);
+  pinMode(ledSeco , OUTPUT);
+}
+
+void loop() {
+  calcHumedad();
+  printValues();
+}
+
+void calcHumedad(){
+  humedad = analogRead(sensorHumedad);
+  humedad = 100-((100.0*humedad)/1024);
+  if(humedad>40){
+    digitalWrite(ledSeco , HIGH);
+  }else{
+    digitalWrite(ledSeco , LOW);
+  }
+}
+
+void printValues(){
+  Serial.print("Humedad: ");
+  Serial.print(humedad);
+  Serial.println("%");
+  delay(1000);
+}
